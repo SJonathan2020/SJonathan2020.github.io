@@ -46,8 +46,9 @@ self.addEventListener('install', function(event) {
             '/images/logo128.ico',
             '/images/logo96.ico',
             '/images/logo64.ico',
-            '/images/logo48.ico'
-          ])
+            '/images/logo48.ico',
+            '/images/icon144.png',
+            '/images/icon218.png
         })
     );
     return self.clients.claim();
