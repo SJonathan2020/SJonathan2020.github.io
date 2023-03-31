@@ -50,43 +50,43 @@ self.addEventListener('install', function(event) {
   });
   
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      caches.match(event.request)
-        .then(function(res) {
-          return res;
-        })
-    );
-  });
-
-self.addEventListener('activate', function (event) {
-  event.waitUntil(
-    caches.keys().then(function ('first-app') {
-      return Promise.all(
-        cacheNames
-          .filter(function ('first-app') {
-            // Return true if you want to remove this cache,
-            // but remember that caches are shared across
-            // the whole origin
-          })
-          .map(function (cacheName) {
-            return caches.delete(cacheName);
-          }),
-      );
-    }),
-  );
-});
-  
-// //cache then network
 // self.addEventListener('fetch', function(event) {
 //     event.respondWith(
-//       caches.open('first-app')
-//         .then(function(cache) {
-//           return fetch(event.request)
-//             .then(function(res) {
-//               cache.put(event.request, res.clone());
-//               return res;
-//             });
+//       caches.match(event.request)
+//         .then(function(res) {
+//           return res;
 //         })
 //     );
 //   });
+
+// self.addEventListener('activate', function (event) {
+//   event.waitUntil(
+//     caches.keys().then(function ('first-app') {
+//       return Promise.all(
+//         cacheNames
+//           .filter(function ('first-app') {
+//             // Return true if you want to remove this cache,
+//             // but remember that caches are shared across
+//             // the whole origin
+//           })
+//           .map(function (cacheName) {
+//             return caches.delete(cacheName);
+//           }),
+//       );
+//     }),
+//   );
+// });
+  
+//cache then network
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      caches.open('first-app')
+        .then(function(cache) {
+          return fetch(event.request)
+            .then(function(res) {
+              cache.put(event.request, res.clone());
+              return res;
+            });
+        })
+    );
+  });
