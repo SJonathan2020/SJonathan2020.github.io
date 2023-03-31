@@ -5,7 +5,7 @@ self.addEventListener('install', function(event) {
         .then(function(cache) {
           cache.addAll([
             '/',
-             '/sembarang.html'/
+             '/sembarang.html'/,
             '/index.html',
             '/blog.html',
             '/contact.html',
