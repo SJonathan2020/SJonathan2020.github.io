@@ -55,7 +55,7 @@ self.addEventListener('install', function(event) {
     return self.clients.claim();
   });
   
-// fetch
+
 // self.addEventListener('fetch', function(event) {
 //     event.respondWith(
 //       caches.match(event.request)
@@ -65,37 +65,34 @@ self.addEventListener('install', function(event) {
 //     );
 //   });
 
-//cache
-// self.addEventListener('install', function(event) {
-//     console.log('[Service Worker] Installing Service Worker ...', event);
-//     event.waitUntil(
-//       caches.open('static')
+self.addEventListener('activate', function (event) {
+  event.waitUntil(
+    caches.keys().then(function ('first-app') {
+      return Promise.all(
+        cacheNames
+          .filter(function ('first-app') {
+            // Return true if you want to remove this cache,
+            // but remember that caches are shared across
+            // the whole origin
+          })
+          .map(function (cacheName) {
+            return caches.delete(cacheName);
+          }),
+      );
+    }),
+  );
+});
+  
+// //cache then network
+// self.addEventListener('fetch', function(event) {
+//     event.respondWith(
+//       caches.open('first-app')
 //         .then(function(cache) {
-//           console.log('[Service Worker] Precaching App Shell');
-//           cache.add('/app.js')
+//           return fetch(event.request)
+//             .then(function(res) {
+//               cache.put(event.request, res.clone());
+//               return res;
+//             });
 //         })
-//     )
+//     );
 //   });
-  
-//   self.addEventListener('activate', function(event) {
-//     console.log('[Service Worker] Activating Service Worker ....', event);
-//     return self.clients.claim();
-//   });
-  
-//   self.addEventListener('fetch', function(event) {
-//     event.respondWith(fetch(event.request));
-//   });
-  
-  //cache then network
-  self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      caches.open('first-app')
-        .then(function(cache) {
-          return fetch(event.request)
-            .then(function(res) {
-              cache.put(event.request, res.clone());
-              return res;
-            });
-        })
-    );
-  });
