@@ -4,7 +4,7 @@ self.addEventListener('install', function(event) {
       caches.open('first-app')
         .then(function(cache) {
           cache.addAll([
-            '/',
+//             '/',
             '/index.html',
             '/blog.html',
             '/contact.html',
