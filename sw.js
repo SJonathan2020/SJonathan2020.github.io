@@ -54,14 +54,14 @@ self.addEventListener('install', function(event) {
   });
   
 //fetch
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      caches.match(event.request)
-        .then(function(res) {
-          return res;
-        })
-    );
-  });
+// self.addEventListener('fetch', function(event) {
+//     event.respondWith(
+//       caches.match(event.request)
+//         .then(function(res) {
+//           return res;
+//         })
+//     );
+//   });
 
 //cache
 // self.addEventListener('install', function(event) {
@@ -87,7 +87,7 @@ self.addEventListener('fetch', function(event) {
   //cache then network
   self.addEventListener('fetch', function(event) {
     event.respondWith(
-      caches.open(CACHE_DYNAMIC_NAME)
+      caches.open('first-app')
         .then(function(cache) {
           return fetch(event.request)
             .then(function(res) {
